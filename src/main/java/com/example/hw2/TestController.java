@@ -69,6 +69,12 @@ public class TestController {
     }
 
     // add few citations
+//    [{
+//        "citation": "нова цитата3"
+//    },
+//    {
+//        "citation":   "нова цитата4"
+//    }]
     @PostMapping("/citations")
     public String postCitation1(@RequestBody Citation[] citations) {
         String numbers = "Your citations under the numbers: ";
@@ -79,6 +85,14 @@ public class TestController {
         }
 
         return numbers;
+    }
+
+
+    // update one citation by id
+    @PutMapping("/citation/{id}")
+    public String updateCitation(@PathVariable Integer id, @RequestBody Citation citation) {
+        catchPhrases.put(id,citation.getCitation());
+        return "citation by id: " + id + " was updated";
     }
 
 
