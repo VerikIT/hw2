@@ -4,10 +4,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 public class TestController {
+
     Map<Integer, String> catchPhrases = new HashMap<>();
 
     {
@@ -24,21 +26,50 @@ public class TestController {
 
     }
 
+    private int id = catchPhrases.size();
+
     //    @GetMapping("/citation")
 //    public String getCitation1(@RequestParam Integer id){
 //        return catchPhrases.get(id);
 //    }
     @GetMapping("/citation/{id}")
     public String getCitation1(@PathVariable Integer id) {
+
         return catchPhrases.get(id);
     }
 
     @GetMapping("/citation")
     public Map<Integer, String> catchPhrases() {
+
         return catchPhrases;
     }
-//    @GetMapping("/citation")
+
+    //    @GetMapping("/citation")
 //    public Collection<String> catchPhrases() {
 //        return catchPhrases.values();
+//    }
+
+//    @PostMapping("/citation")
+//    public String postCitation1(@RequestBody String citation) {
+//        catchPhrases.put(++id, citation);
+//        return "Your citation under the number: " + id;
+//    }
+
+//    @PostMapping("/citation")
+//    public String postCitation1(@RequestBody Citation citation) {
+//        catchPhrases.put(++id, citation.getCitation());
+//        return "Your citation under the number: " + id;
+//
+//    }
+//    @PostMapping("/citations")
+//    public String postCitation1(@RequestBody Citation[] citations) {
+//      String numbers = "Your citation under the number: ";
+//       for (Citation Citation : citations){
+//           catchPhrases.put(++id,
+//                   Citation.getCitation());
+//           numbers+=id+", ";
+//       }
+//
+//        return  numbers;
 //    }
 }
