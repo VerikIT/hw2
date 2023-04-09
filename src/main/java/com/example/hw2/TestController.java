@@ -2,9 +2,7 @@ package com.example.hw2;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -55,21 +53,25 @@ public class TestController {
 //        return "Your citation under the number: " + id;
 //    }
 
+
+    // add one citation
     @PostMapping("/citation")
     public String postCitation1(@RequestBody Citation citation) {
         catchPhrases.put(++id, citation.getCitation());
         return "Your citation under the number: " + id;
 
     }
-//    @PostMapping("/citations")
-//    public String postCitation1(@RequestBody Citation[] citations) {
-//      String numbers = "Your citation under the number: ";
-//       for (Citation Citation : citations){
-//           catchPhrases.put(++id,
-//                   Citation.getCitation());
-//           numbers+=id+", ";
-//       }
-//
-//        return  numbers;
-//    }
+
+    // add few citations
+      @PostMapping("/citations")
+    public String postCitation1(@RequestBody Citation[] citations) {
+      String numbers = "Your citations under the numbers: ";
+       for (Citation citation : citations){
+           catchPhrases.put(++id,
+                   citation.getCitation());
+           numbers+=id+", ";
+       }
+
+        return  numbers;
+    }
 }
