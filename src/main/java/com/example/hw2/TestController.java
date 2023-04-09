@@ -30,17 +30,23 @@ public class TestController {
 //    public String getCitation1(@RequestParam Integer id){
 //        return catchPhrases.get(id);
 //    }
+
+
+    // get one citation by id
     @GetMapping("/citation/{id}")
     public String getCitation1(@PathVariable Integer id) {
 
         return catchPhrases.get(id);
     }
 
+
+    // get all citations
     @GetMapping("/citation")
     public Map<Integer, String> catchPhrases() {
 
         return catchPhrases;
     }
+
 
     //    @GetMapping("/citation")
 //    public Collection<String> catchPhrases() {
@@ -63,15 +69,25 @@ public class TestController {
     }
 
     // add few citations
-      @PostMapping("/citations")
+    @PostMapping("/citations")
     public String postCitation1(@RequestBody Citation[] citations) {
-      String numbers = "Your citations under the numbers: ";
-       for (Citation citation : citations){
-           catchPhrases.put(++id,
-                   citation.getCitation());
-           numbers+=id+", ";
-       }
+        String numbers = "Your citations under the numbers: ";
+        for (Citation citation : citations) {
+            catchPhrases.put(++id,
+                    citation.getCitation());
+            numbers += id + ", ";
+        }
 
-        return  numbers;
+        return numbers;
     }
+
+
+    // remove one citation by id
+    @DeleteMapping("/citation/{id}")
+    public String removeCitation(@PathVariable Integer id) {
+        catchPhrases.remove(id);
+        return "citation by id: " + id + " was removed";
+    }
+
+
 }
