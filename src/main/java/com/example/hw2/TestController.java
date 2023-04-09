@@ -55,12 +55,12 @@ public class TestController {
 //        return "Your citation under the number: " + id;
 //    }
 
-//    @PostMapping("/citation")
-//    public String postCitation1(@RequestBody Citation citation) {
-//        catchPhrases.put(++id, citation.getCitation());
-//        return "Your citation under the number: " + id;
-//
-//    }
+    @PostMapping("/citation")
+    public String postCitation1(@RequestBody Citation citation) {
+        catchPhrases.put(++id, citation.getCitation());
+        return "Your citation under the number: " + id;
+
+    }
 //    @PostMapping("/citations")
 //    public String postCitation1(@RequestBody Citation[] citations) {
 //      String numbers = "Your citation under the number: ";
