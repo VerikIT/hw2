@@ -1,5 +1,6 @@
 package com.example.hw2;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -62,7 +63,7 @@ public class TestController {
 
     // add one citation
     @PostMapping("/citation")
-    public String postCitation1(@RequestBody Citation citation) {
+    public String postCitation1(@RequestBody @Validated Citation citation) {
         catchPhrases.put(++id, citation.getCitation());
         return "Your citation under the number: " + id;
 
@@ -76,7 +77,7 @@ public class TestController {
 //        "citation":   "нова цитата4"
 //    }]
     @PostMapping("/citations")
-    public String postCitation1(@RequestBody Citation[] citations) {
+    public String postCitation1(@RequestBody @Validated Citation[] citations) {
         String numbers = "Your citations under the numbers: ";
         for (Citation citation : citations) {
             catchPhrases.put(++id,
@@ -90,7 +91,7 @@ public class TestController {
 
     // update one citation by id
     @PutMapping("/citation/{id}")
-    public String updateCitation(@PathVariable Integer id, @RequestBody Citation citation) {
+    public String updateCitation(@PathVariable Integer id, @RequestBody @Validated Citation citation) {
         catchPhrases.put(id,citation.getCitation());
         return "citation by id: " + id + " was updated";
     }
