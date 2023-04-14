@@ -1,13 +1,14 @@
 package com.example.hw2;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 public class TestController {
+
     Map<Integer, String> catchPhrases = new HashMap<>();
 
     {
@@ -24,21 +25,84 @@ public class TestController {
 
     }
 
+    private int id = catchPhrases.size();
+
     //    @GetMapping("/citation")
 //    public String getCitation1(@RequestParam Integer id){
 //        return catchPhrases.get(id);
 //    }
+
+
+    // get one citation by id
     @GetMapping("/citation/{id}")
     public String getCitation1(@PathVariable Integer id) {
+
         return catchPhrases.get(id);
     }
 
+
+    // get all citations
     @GetMapping("/citation")
     public Map<Integer, String> catchPhrases() {
+
         return catchPhrases;
     }
-//    @GetMapping("/citation")
+
+
+    //    @GetMapping("/citation")
 //    public Collection<String> catchPhrases() {
 //        return catchPhrases.values();
 //    }
+
+//    @PostMapping("/citation")
+//    public String postCitation1(@RequestBody String citation) {
+//        catchPhrases.put(++id, citation);
+//        return "Your citation under the number: " + id;
+//    }
+
+
+    // add one citation
+    @PostMapping("/citation")
+    public String postCitation1(@RequestBody @Validated Citation citation) {
+        catchPhrases.put(++id, citation.getCitation());
+        return "Your citation under the number: " + id;
+
+    }
+
+    // add few citations
+//    [{
+//        "citation": "нова цитата3"
+//    },
+//    {
+//        "citation":   "нова цитата4"
+//    }]
+    @PostMapping("/citations")
+    public String postCitation1(@RequestBody @Validated Citation[] citations) {
+        String numbers = "Your citations under the numbers: ";
+        for (Citation citation : citations) {
+            catchPhrases.put(++id,
+                    citation.getCitation());
+            numbers += id + ", ";
+        }
+
+        return numbers;
+    }
+
+
+    // update one citation by id
+    @PutMapping("/citation/{id}")
+    public String updateCitation(@PathVariable Integer id, @RequestBody @Validated Citation citation) {
+        catchPhrases.put(id,citation.getCitation());
+        return "citation by id: " + id + " was updated";
+    }
+
+
+    // remove one citation by id
+    @DeleteMapping("/citation/{id}")
+    public String removeCitation(@PathVariable Integer id) {
+        catchPhrases.remove(id);
+        return "citation by id: " + id + " was removed";
+    }
+
+
 }
