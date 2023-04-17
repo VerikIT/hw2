@@ -1,5 +1,7 @@
 package com.example.hw2;
 
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +38,6 @@ public class TestController {
     // get one citation by id
     @GetMapping("/citation/{id}")
     public String getCitation1(@PathVariable Integer id) {
-
         return catchPhrases.get(id);
     }
 
@@ -103,6 +104,5 @@ public class TestController {
         catchPhrases.remove(id);
         return "citation by id: " + id + " was removed";
     }
-
 
 }
